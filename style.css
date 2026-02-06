@@ -4,4 +4,22 @@ body {
     font-family: sans-serif;
     text-align: center;
 }
+.feed {
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.post {
+    background-color: #1A1C23; /* Lighter black for contrast */
+    border: 1px solid #66FCF1;  /* Neon border */
+    border-radius: 12px;       /* Rounded corners */
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: left;          /* Keeps text to the left */
+}
+
+h3 {
+    margin-top: 0;
+    color: #66FCF1;            /* Neon username */
+}
 
