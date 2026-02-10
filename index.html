@@ -42,3 +42,16 @@
 
     </div>
 </body>
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="text" name="username" placeholder="Your Name">
+    <textarea name="content" placeholder="What's on your mind?"></textarea>
+    
+    <input type="file" name="media" accept="image/*,video/*"> 
+    
+    <button type="submit">Post to Feed</button>
+</form>
+<div class="feed-item">
+    <strong>User Name</strong>
+    <p>Post content goes here...</p>
+    <img src="/path-to-your-upload.jpg" style="max-width: 100%; border-radius: 8px;">
+</div>
