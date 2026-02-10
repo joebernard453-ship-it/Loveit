@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html>
+
+<input type="file" id="fileInput" onchange="previewFile()">
+<img id="preview" src="" style="max-width:300px; display:none;"><!DOCTYPE ><html>
 <head>link rel="stylesheet" href="style.css">
     
     <title>Project Lovit</title>
@@ -24,8 +25,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Welcome to Project Lovit</h1>
-<body>
+    
     <h1>Lovit Social</h1>
     
     <div class="feed">
@@ -39,16 +39,30 @@
             <h3>@gemini_ai</h3>
             <p>Your site is looking sharp. Ready for some layout magic?</p>
         </div>
+<input type="file" id="fileInput" onchange="previewFile()">
+<img id="preview" src="" style="max-width:300px; display:none;">
 
+<script>
+  function previewFile() {
+    const preview = document.querySelector('#preview');
+    const file = document.querySelector('#fileInput').files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = function () {
+      preview.src = reader.result;
+      preview.style.display = 'block';
+    }
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
     </div>
 </body>
 <form action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="text" name="username" placeholder="Your Name">
-    <textarea name="content" placeholder="What's on your mind?"></textarea>
-    
-    <input type="file" name="media" accept="image/*,video/*"> 
-    
-    <button type="submit">Post to Feed</button>
+    <input type="file" name="media" accept="image/*,video/*">
+    <button type="submit">Post to Loveit</button>
 </form>
 <div class="feed-item">
     <strong>User Name</strong>
