@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <nav class="navbar">
         <a href="#">Home</a>
         <a href="#">Profile</a>
@@ -44,6 +44,7 @@
     <button onclick="previewVideo()" style="background: #00ddff; border: none; padding: 5px 15px; cursor: pointer;">
         Preview Upload
     </button>
+<button id="upload_widget" class="cloudinary-button">Upload Images</button>
 
     <div id="videoPreviewContainer" style="margin-top: 15px; display: none;">
         <video id="videoPlayer" width="100%" controls>
@@ -52,7 +53,7 @@
     </div>
 </div>
 <script>
-    function previewVideo() {
+ function previewVideo() {
         const fileInput = document.getElementById('videoInput');
         const videoPlayer = document.getElementById('videoPlayer');
         const container = document.getElementById('videoPreviewContainer');
@@ -68,5 +69,17 @@
         }
     }
 </script>
+const myWidget = cloudinary.createUploadWidget({
+  cloudName: 'dxuc8p32q' , 
+  uploadPreset: 'loveit_uploads'
+}, (error, result) => { 
+    if (!error && result && result.event === "success") { 
+      console.log('Done! Image URL: ', result.info.secure_url); 
+    }
+});
+  </script>
+document.getElementById("upload_widget").addEventListener("click", function(){
+    myWidget.open();
+}, false);
 </body>
 </html>
