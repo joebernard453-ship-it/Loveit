@@ -69,14 +69,13 @@
         }
     }
 </script>
-const myWidget = cloudinary.createUploadWidget({
+<const myWidget = cloudinary.createUploadWidget({
   cloudName: 'dxuc8p32q' , 
   uploadPreset: 'loveit_uploads'
 }, (error, result) => { 
     if (!error && result && result.event === "success") { 
       console.log('Done! Image URL: ', result.info.secure_url); 
-    }
-});
+}>
   </script>
 document.getElementById("upload_widget").addEventListener("click", function(){
     myWidget.open();
