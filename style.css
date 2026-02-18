@@ -23,3 +23,40 @@ h3 {
     color: #66FCF1;            /* Neon username */
 }
 
+/* Container for the upload section */
+.upload-section {
+    background-color: #1A1C23;
+    border: 2px dashed #66FCF1; /* Dashed border looks like a "drop zone" */
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Hide the default ugly file input */
+#videoInput {
+    display: none;
+}
+
+/* Style the label to look like a real button */
+.custom-upload-btn {
+    display: inline-block;
+    background-color: #66FCF1;
+    color: #0B0C10;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.custom-upload-btn:hover {
+    box-shadow: 0 0 15px #66FCF1;
+    transform: scale(1.05);
+}
+
+/* Style the preview video */
+#videoPlayer {
+    border-radius: 8px;
+    border: 1px solid #66FCF1;
+    margin-top: 15px;
+}
