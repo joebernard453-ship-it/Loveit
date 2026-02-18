@@ -69,15 +69,21 @@
         }
     }
 </script>
-<const myWidget = cloudinary.createUploadWidget({
-  cloudName: 'dxuc8p32q' , 
-  uploadPreset: 'loveit_uploads'
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
-}> <(error, result) => {     if (!error && result && result.event === "success") { 
-      console.log('Done! Image URL: ', result.info.secure_url)>  </script>
-<document.getElementById("upload_widget").addEventListener("click", function(){
-    myWidget.open();
-}, false)>
+<script type="text/javascript">
+  const myWidget = cloudinary.createUploadWidget({
+    cloudName: 'dxuc8p32q', 
+    uploadPreset: 'loveit_uploads'
+  }, (error, result) => { 
+      if (!error && result && result.event === "success") { 
+        console.log('Done! Image URL: ', result.info.secure_url); 
+      }
+  });
+document.getElementById("upload_widget").addEventListener("click", function(){
+      myWidget.open();
+  }, false);
+</script>
 </body>
 </html>
 
