@@ -1,32 +1,53 @@
-<!DOCTYPE html>
-<html>
+l<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lovit Social</title>
-    <link rel="stylesheet" href="style.css">
     <style>
-        body { 
-            font-family: sans-serif; 
-            background: #121212; 
-            color: white; 
+        body {
+            font-family: sans-serif;
+            background: #121212;
+            color: white;
+            padding: 20px;
         }
-        .navbar { 
-            display: flex; 
-            justify-content: space-around; 
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            padding-bottom: 20px;
         }
-        .navbar a { 
-            color: #00ddff; 
-            text-decoration: none; 
+        .navbar a {
+            color: #00ddff;
+            text-decoration: none;
+            font-weight: bold;
         }
-        .post-card { 
-            background: #1f1f1f; 
-            margin: 10px; 
-            padding: 15px; 
+        .post-card {
+            background: #1f1f1f;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+        .btn {
+            background: #00ddff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            color: #000;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #gallery img {
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 8px;
+            display: block;
         }
     </style>
 </head>
 <body>
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
     <nav class="navbar">
         <a href="#">Home</a>
         <a href="#">Profile</a>
@@ -35,70 +56,58 @@
     <h1>Welcome to Lovit</h1>
 
     <div class="post-card">
-        <p>This is where your social posts will go!</p>
+        <h3>Share a Video</h3>
+        <input type="file" id="videoInput" accept="video/*">
+        <br>
+        <button class="btn" onclick="previewVideo()">Preview Video</button>
+
+        <div id="videoPreviewContainer" style="margin-top: 15px; display: none;">
+            <video id="videoPlayer" width="100%" controls></video>
+        </div>
     </div>
-<div class="post-card">
-    <h3>Share a Video</h3>
-    <input type="file" id="videoInput" accept="video/*" style="margin-bottom: 10px;">
-    <br>
-    <button onclick="previewVideo()" style="background: #00ddff; border: none; padding: 5px 15px; cursor: pointer;">
-        Preview Upload
-    </button>
-<button id="upload_widget" class="cloudinary-button">Upload Images</button>
 
-    <div id="videoPreviewContainer" style="margin-top: 15px; display: none;">
-        <video id="videoPlayer" width="100%" controls>
-            Your browser does not support the video tag.
-        </video>
+    <div class="post-card">
+        <h3>Share an Image</h3>
+        <button id="upload_widget" class="btn">Upload via Cloudinary</button>
+        <div id="gallery"></div>
     </div>
-</div>
-<script>
- function previewVideo() {
-        const fileInput = document.getElementById('videoInput');
-        const videoPlayer = document.getElementById('videoPlayer');
-        const container = document.getElementById('videoPreviewContainer');
 
-        if (fileInput.files && fileInput.files[0]) {
-            const file = fileInput.files[0];
-            const fileURL = URL.createObjectURL(file);
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
-            videoPlayer.src = fileURL;
-            container.style.display = 'block';
-        } else {
-            alert("Please select a video file first!");
+    <script type="text/javascript">
+        // 1. Video Preview Logic
+        function previewVideo() {
+            const fileInput = document.getElementById('videoInput');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const container = document.getElementById('videoPreviewContainer');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const fileURL = URL.createObjectURL(fileInput.files[0]);
+                videoPlayer.src = fileURL;
+                container.style.display = 'block';
+            } else {
+                alert("Please select a video file first!");
+            }
         }
-    }
-</script>
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-<button id="upload_widget" class="cloudinary-button">Upload Images</button>
+        // 2. Cloudinary Upload Logic
+        const myWidget = cloudinary.createUploadWidget({
+            cloudName: 'dxuc8p32q', 
+            uploadPreset: 'loveit_uploads'
+        }, (error, result) => {
+            if (!error && result && result.event === "success") {
+                console.log('Done! Image URL: ', result.info.secure_url);
+                const gallery = document.getElementById("gallery");
+                const newImg = document.createElement("img");
+                newImg.src = result.info.secure_url;
+                gallery.appendChild(newImg);
+            }
+        });
 
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-<script type="text/javascript">
-  const myWidget = cloudinary.createUploadWidget({
-    cloudName: 'dxuc8p32q', 
-    uploadPreset: 'loveit_uploads'
-  }, (error, result) => { 
-      if (!error && result && result.event === "success") { 
-        console.log('Done! Image URL: ', result.info.secure_url);
-        // Show the image on the page
-        document.getElementById("gallery").innerHTML += 
-          `<img src="${result.info.secure_url}" style="width:100%; margin-top:10px; border-radius:8px;">`;
-      }
-  });const btn = document.getElementById("upload_widget");
-  if (btn) {
-    btn.onclick = function() {
-      myWidget.open();
-    };
-  } else {
-    console.error("Could not find the button! Check your HTML ID.");
-  }
-</script>
-</script>
-</script>
+        document.getElementById("upload_widget").addEventListener("click", function() {
+            myWidget.open();
+        }, false);
+    </script>
 </body>
 </html>
-
-
 
