@@ -1,0 +1,36 @@
+const express = require('express');
+const path = require('path');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.static('public'));
+
+app.get('/api/status', (req, res) => {
+    res.json({ status: "Lovit Server is Live!", timestamp: new Date() });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
+app.post('/api/posts', async (req, res) => {
+    const { image_url } = req.body;
+    try {
+        await pool.query('INSERT INTO posts (image_url) VALUES ($1)', [image_url]);
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+const express = require('express');
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+const { Pool } = require('pg'); // The Database Driver
+const app = express();
+const upload = multer({ dest: 'uploads/' });
+
